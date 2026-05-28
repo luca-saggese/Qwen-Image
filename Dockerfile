@@ -1,23 +1,13 @@
 FROM dgx-spark-base
 
-WORKDIR /workspace/Lance
+WORKDIR /workspace/Qwen-Image
 
-# Copia il codice sorgente nel container
-# COPY . /workspace/Lance
-RUN git clone https://github.com/luca-saggese/Lance.git /workspace/Lance
+RUN git clone https://github.com/luca-saggese//Qwen-Image.git /workspace/Qwen-Image
 
 # 1. Installa packaging (richiesto da should_install.py)
-# 2. Esegui should_install.py (installa requirements.txt con --no-deps)
-# 3. Fix tokenizers (versione specifica senza deps)
-# 4. Fix numpy (< 2 richiesto)
-# 5. Installa fastapi e uvicorn
-RUN pip install packaging && \
-    python should_install.py && \
-    pip install tokenizers==0.21.4 --no-deps && \
-    pip install "numpy<2" 
+RUN pip install git+https://github.com/huggingface/diffusers
     
-RUN    pip install fastapi uvicorn
-RUN pip install "huggingface-hub<1"
+RUN    pip install transformers accelerate
 
 EXPOSE 8000
 
