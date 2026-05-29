@@ -9,9 +9,12 @@ RUN pip install git+https://github.com/huggingface/diffusers
     
 RUN    pip install transformers accelerate
 
+RUN pip install fastapi uvicorn
+
 ENV HF_HOME=/huggingface
 
 EXPOSE 8000
 
 CMD ["python", "openai_server.py"]
-#docker run --rm -ti --gpus all -p 8088:8000 qwen-image
+
+#docker run --rm -it --gpus all -p 8088:8080 --name qwen-image -v /home/lvx/huggingface:/huggingface qwen-image
