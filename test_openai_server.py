@@ -2,7 +2,7 @@
 """
 test_openai_server.py
 ---------------------
-Testa tutti gli endpoint del server Lance OpenAI-compatibile.
+Testa tutti gli endpoint del server qwen OpenAI-compatibile.
 
 Uso:
     python test_openai_server.py <port>
@@ -178,7 +178,7 @@ def test_list_models(base_url: str, timeout: int) -> list[str]:
 
 def test_t2i(base_url: str, timeout: int, seed: int) -> bool:
     payload = {
-        "model": "lance-t2i",
+        "model": "qwen-t2i",
         "messages": [{"role": "user", "content": "A serene mountain lake at sunset"}],
         "seed": seed,
         "num_timesteps": 5,
@@ -186,16 +186,16 @@ def test_t2i(base_url: str, timeout: int, seed: int) -> bool:
     try:
         resp = _post(base_url, payload, timeout)
         ok, detail = _check_generation_response(resp, "images", "t2i")
-        _result(ok, "POST /v1/chat/completions  [lance-t2i  – Text→Image]", detail)
+        _result(ok, "POST /v1/chat/completions  [qwen-t2i  – Text→Image]", detail)
         return ok
     except Exception as exc:
-        _result(False, "POST /v1/chat/completions  [lance-t2i  – Text→Image]", str(exc))
+        _result(False, "POST /v1/chat/completions  [qwen-t2i  – Text→Image]", str(exc))
         return False
 
 
 def test_t2v(base_url: str, timeout: int, seed: int) -> bool:
     payload = {
-        "model": "lance-t2v",
+        "model": "qwen-t2v",
         "messages": [{"role": "user", "content": "A bird flying over the ocean"}],
         "seed": seed,
         "num_timesteps": 5,
@@ -204,19 +204,19 @@ def test_t2v(base_url: str, timeout: int, seed: int) -> bool:
     try:
         resp = _post(base_url, payload, timeout)
         ok, detail = _check_generation_response(resp, "videos", "t2v")
-        _result(ok, "POST /v1/chat/completions  [lance-t2v  – Text→Video]", detail)
+        _result(ok, "POST /v1/chat/completions  [qwen-t2v  – Text→Video]", detail)
         return ok
     except Exception as exc:
-        _result(False, "POST /v1/chat/completions  [lance-t2v  – Text→Video]", str(exc))
+        _result(False, "POST /v1/chat/completions  [qwen-t2v  – Text→Video]", str(exc))
         return False
 
 
 def test_i2i(base_url: str, timeout: int, seed: int) -> bool:
     if not INPUT_IMAGE.exists():
-        _result(False, "POST /v1/chat/completions  [lance-i2i  – Image→Image]", f"File non trovato: {INPUT_IMAGE}")
+        _result(False, "POST /v1/chat/completions  [qwen-i2i  – Image→Image]", f"File non trovato: {INPUT_IMAGE}")
         return False
     payload = {
-        "model": "lance-i2i",
+        "model": "qwen-i2i",
         "messages": [
             {
                 "role": "user",
@@ -232,19 +232,19 @@ def test_i2i(base_url: str, timeout: int, seed: int) -> bool:
     try:
         resp = _post(base_url, payload, timeout)
         ok, detail = _check_generation_response(resp, "images", "i2i")
-        _result(ok, "POST /v1/chat/completions  [lance-i2i  – Image→Image]", detail)
+        _result(ok, "POST /v1/chat/completions  [qwen-i2i  – Image→Image]", detail)
         return ok
     except Exception as exc:
-        _result(False, "POST /v1/chat/completions  [lance-i2i  – Image→Image]", str(exc))
+        _result(False, "POST /v1/chat/completions  [qwen-i2i  – Image→Image]", str(exc))
         return False
 
 
 def test_i2t(base_url: str, timeout: int, seed: int) -> bool:
     if not INPUT_IMAGE.exists():
-        _result(False, "POST /v1/chat/completions  [lance-i2t  – Image→Text]", f"File non trovato: {INPUT_IMAGE}")
+        _result(False, "POST /v1/chat/completions  [qwen-i2t  – Image→Text]", f"File non trovato: {INPUT_IMAGE}")
         return False
     payload = {
-        "model": "lance-i2t",
+        "model": "qwen-i2t",
         "messages": [
             {
                 "role": "user",
@@ -259,19 +259,19 @@ def test_i2t(base_url: str, timeout: int, seed: int) -> bool:
     try:
         resp = _post(base_url, payload, timeout)
         ok, detail = _check_text_response(resp)
-        _result(ok, "POST /v1/chat/completions  [lance-i2t  – Image→Text]", detail)
+        _result(ok, "POST /v1/chat/completions  [qwen-i2t  – Image→Text]", detail)
         return ok
     except Exception as exc:
-        _result(False, "POST /v1/chat/completions  [lance-i2t  – Image→Text]", str(exc))
+        _result(False, "POST /v1/chat/completions  [qwen-i2t  – Image→Text]", str(exc))
         return False
 
 
 def test_v2v(base_url: str, timeout: int, seed: int) -> bool:
     if not INPUT_VIDEO.exists():
-        _result(False, "POST /v1/chat/completions  [lance-v2v  – Video→Video]", f"File non trovato: {INPUT_VIDEO}")
+        _result(False, "POST /v1/chat/completions  [qwen-v2v  – Video→Video]", f"File non trovato: {INPUT_VIDEO}")
         return False
     payload = {
-        "model": "lance-v2v",
+        "model": "qwen-v2v",
         "messages": [
             {
                 "role": "user",
@@ -288,19 +288,19 @@ def test_v2v(base_url: str, timeout: int, seed: int) -> bool:
     try:
         resp = _post(base_url, payload, timeout)
         ok, detail = _check_generation_response(resp, "videos", "v2v")
-        _result(ok, "POST /v1/chat/completions  [lance-v2v  – Video→Video]", detail)
+        _result(ok, "POST /v1/chat/completions  [qwen-v2v  – Video→Video]", detail)
         return ok
     except Exception as exc:
-        _result(False, "POST /v1/chat/completions  [lance-v2v  – Video→Video]", str(exc))
+        _result(False, "POST /v1/chat/completions  [qwen-v2v  – Video→Video]", str(exc))
         return False
 
 
 def test_v2t(base_url: str, timeout: int, seed: int) -> bool:
     if not INPUT_VIDEO.exists():
-        _result(False, "POST /v1/chat/completions  [lance-v2t  – Video→Text]", f"File non trovato: {INPUT_VIDEO}")
+        _result(False, "POST /v1/chat/completions  [qwen-v2t  – Video→Text]", f"File non trovato: {INPUT_VIDEO}")
         return False
     payload = {
-        "model": "lance-v2t",
+        "model": "qwen-v2t",
         "messages": [
             {
                 "role": "user",
@@ -315,20 +315,20 @@ def test_v2t(base_url: str, timeout: int, seed: int) -> bool:
     try:
         resp = _post(base_url, payload, timeout)
         ok, detail = _check_text_response(resp)
-        _result(ok, "POST /v1/chat/completions  [lance-v2t  – Video→Text]", detail)
+        _result(ok, "POST /v1/chat/completions  [qwen-v2t  – Video→Text]", detail)
         return ok
     except Exception as exc:
-        _result(False, "POST /v1/chat/completions  [lance-v2t  – Video→Text]", str(exc))
+        _result(False, "POST /v1/chat/completions  [qwen-v2t  – Video→Text]", str(exc))
         return False
 
 
 def test_ti2v(base_url: str, timeout: int, seed: int) -> bool:
     """Image+Text → Video (ti2v / tiv2v_idip)."""
     if not INPUT_IMAGE.exists():
-        _result(False, "POST /v1/chat/completions  [lance-ti2v – Image+Text→Video]", f"File non trovato: {INPUT_IMAGE}")
+        _result(False, "POST /v1/chat/completions  [qwen-ti2v – Image+Text→Video]", f"File non trovato: {INPUT_IMAGE}")
         return False
     payload = {
-        "model": "lance-ti2v",
+        "model": "qwen-ti2v",
         "messages": [
             {
                 "role": "user",
@@ -345,23 +345,23 @@ def test_ti2v(base_url: str, timeout: int, seed: int) -> bool:
     try:
         resp = _post(base_url, payload, timeout)
         ok, detail = _check_generation_response(resp, "videos", "ti2v")
-        _result(ok, "POST /v1/chat/completions  [lance-ti2v – Image+Text→Video]", detail)
+        _result(ok, "POST /v1/chat/completions  [qwen-ti2v – Image+Text→Video]", detail)
         return ok
     except Exception as exc:
-        _result(False, "POST /v1/chat/completions  [lance-ti2v – Image+Text→Video]", str(exc))
+        _result(False, "POST /v1/chat/completions  [qwen-ti2v – Image+Text→Video]", str(exc))
         return False
 
 
 def test_x2v(base_url: str, timeout: int, seed: int) -> bool:
     """Text + Image + Video → Video (x2v: qualsiasi mix di media → video)."""
     if not INPUT_IMAGE.exists():
-        _result(False, "POST /v1/chat/completions  [lance-x2v  – Any→Video]", f"File non trovato: {INPUT_IMAGE}")
+        _result(False, "POST /v1/chat/completions  [qwen-x2v  – Any→Video]", f"File non trovato: {INPUT_IMAGE}")
         return False
     if not INPUT_VIDEO.exists():
-        _result(False, "POST /v1/chat/completions  [lance-x2v  – Any→Video]", f"File non trovato: {INPUT_VIDEO}")
+        _result(False, "POST /v1/chat/completions  [qwen-x2v  – Any→Video]", f"File non trovato: {INPUT_VIDEO}")
         return False
     payload = {
-        "model": "lance-x2v",
+        "model": "qwen-x2v",
         "messages": [
             {
                 "role": "user",
@@ -379,10 +379,10 @@ def test_x2v(base_url: str, timeout: int, seed: int) -> bool:
     try:
         resp = _post(base_url, payload, timeout)
         ok, detail = _check_generation_response(resp, "videos", "x2v")
-        _result(ok, "POST /v1/chat/completions  [lance-x2v  – Any→Video]", detail)
+        _result(ok, "POST /v1/chat/completions  [qwen-x2v  – Any→Video]", detail)
         return ok
     except Exception as exc:
-        _result(False, "POST /v1/chat/completions  [lance-x2v  – Any→Video]", str(exc))
+        _result(False, "POST /v1/chat/completions  [qwen-x2v  – Any→Video]", str(exc))
         return False
 
 
@@ -390,10 +390,10 @@ def test_x2v_hat(base_url: str, timeout: int, seed: int) -> bool:
     """Girl + Flower + Hat → Video: la ragazza indossa il cappello con il fiore sopra (video)."""
     for path in (INPUT_GIRL, INPUT_FLOWER, INPUT_HAT):
         if not path.exists():
-            _result(False, "POST /v1/chat/completions  [lance-x2v  – Girl+Flower+Hat→Video]", f"File non trovato: {path}")
+            _result(False, "POST /v1/chat/completions  [qwen-x2v  – Girl+Flower+Hat→Video]", f"File non trovato: {path}")
             return False
     payload = {
-        "model": "lance-x2v",
+        "model": "qwen-x2v",
         "messages": [
             {
                 "role": "user",
@@ -420,10 +420,10 @@ def test_x2v_hat(base_url: str, timeout: int, seed: int) -> bool:
     try:
         resp = _post(base_url, payload, timeout)
         ok, detail = _check_generation_response(resp, "videos", "x2v_hat")
-        _result(ok, "POST /v1/chat/completions  [lance-x2v  – Girl+Flower+Hat→Video]", detail)
+        _result(ok, "POST /v1/chat/completions  [qwen-x2v  – Girl+Flower+Hat→Video]", detail)
         return ok
     except Exception as exc:
-        _result(False, "POST /v1/chat/completions  [lance-x2v  – Girl+Flower+Hat→Video]", str(exc))
+        _result(False, "POST /v1/chat/completions  [qwen-x2v  – Girl+Flower+Hat→Video]", str(exc))
         return False
 
 
@@ -431,10 +431,10 @@ def test_x2i_hat(base_url: str, timeout: int, seed: int) -> bool:
     """Girl + Flower + Hat → Image: metti il cappello alla ragazza con il fiore sopra."""
     for path in (INPUT_GIRL, INPUT_FLOWER, INPUT_HAT):
         if not path.exists():
-            _result(False, "POST /v1/chat/completions  [lance-x2i  – Girl+Flower+Hat→Image]", f"File non trovato: {path}")
+            _result(False, "POST /v1/chat/completions  [qwen-x2i  – Girl+Flower+Hat→Image]", f"File non trovato: {path}")
             return False
     payload = {
-        "model": "lance-x2i",
+        "model": "qwen-x2i",
         "messages": [
             {
                 "role": "user",
@@ -460,23 +460,23 @@ def test_x2i_hat(base_url: str, timeout: int, seed: int) -> bool:
     try:
         resp = _post(base_url, payload, timeout)
         ok, detail = _check_generation_response(resp, "images", "x2i_hat")
-        _result(ok, "POST /v1/chat/completions  [lance-x2i  – Girl+Flower+Hat→Image]", detail)
+        _result(ok, "POST /v1/chat/completions  [qwen-x2i  – Girl+Flower+Hat→Image]", detail)
         return ok
     except Exception as exc:
-        _result(False, "POST /v1/chat/completions  [lance-x2i  – Girl+Flower+Hat→Image]", str(exc))
+        _result(False, "POST /v1/chat/completions  [qwen-x2i  – Girl+Flower+Hat→Image]", str(exc))
         return False
 
 
 def test_x2i(base_url: str, timeout: int, seed: int) -> bool:
     """Text + Video + Image → Image (x2i: qualsiasi mix di media → immagine)."""
     if not INPUT_VIDEO.exists():
-        _result(False, "POST /v1/chat/completions  [lance-x2i  – Any→Image]", f"File non trovato: {INPUT_VIDEO}")
+        _result(False, "POST /v1/chat/completions  [qwen-x2i  – Any→Image]", f"File non trovato: {INPUT_VIDEO}")
         return False
     if not INPUT_IMAGE.exists():
-        _result(False, "POST /v1/chat/completions  [lance-x2i  – Any→Image]", f"File non trovato: {INPUT_IMAGE}")
+        _result(False, "POST /v1/chat/completions  [qwen-x2i  – Any→Image]", f"File non trovato: {INPUT_IMAGE}")
         return False
     payload = {
-        "model": "lance-x2i",
+        "model": "qwen-x2i",
         "messages": [
             {
                 "role": "user",
@@ -493,10 +493,10 @@ def test_x2i(base_url: str, timeout: int, seed: int) -> bool:
     try:
         resp = _post(base_url, payload, timeout)
         ok, detail = _check_generation_response(resp, "images", "x2i")
-        _result(ok, "POST /v1/chat/completions  [lance-x2i  – Any→Image]", detail)
+        _result(ok, "POST /v1/chat/completions  [qwen-x2i  – Any→Image]", detail)
         return ok
     except Exception as exc:
-        _result(False, "POST /v1/chat/completions  [lance-x2i  – Any→Image]", str(exc))
+        _result(False, "POST /v1/chat/completions  [qwen-x2i  – Any→Image]", str(exc))
         return False
 
 
@@ -508,17 +508,17 @@ def test_x2i(base_url: str, timeout: int, seed: int) -> bool:
 _TESTS: list[tuple] = [
     ("health",      None,           "GET /health",                          lambda bu, to, se: test_health(bu, to)),
     ("list_models", None,           "GET /v1/models",                       None),  # gestito a parte
-    ("t2i",         "lance-t2i",    "Text → Image",                         lambda bu, to, se: test_t2i(bu, to, se)),
-    ("i2i",         "lance-i2i",    "Image → Image",                        lambda bu, to, se: test_i2i(bu, to, se)),
-    ("i2t",         "lance-i2t",    "Image → Text",                         lambda bu, to, se: test_i2t(bu, to, se)),
-    ("t2v",         "lance-t2v",    "Text → Video",                         lambda bu, to, se: test_t2v(bu, to, se)),
-    ("v2v",         "lance-v2v",    "Video → Video",                        lambda bu, to, se: test_v2v(bu, to, se)),
-    ("v2t",         "lance-v2t",    "Video → Text",                         lambda bu, to, se: test_v2t(bu, to, se)),
-    ("ti2v",        "lance-ti2v",   "Image + Text → Video",                 lambda bu, to, se: test_ti2v(bu, to, se)),
-    ("x2v",         "lance-x2v",    "Any (text/image/video) → Video",       lambda bu, to, se: test_x2v(bu, to, se)),
-    ("x2i",         "lance-x2i",    "Any (text/image/video) → Image",       lambda bu, to, se: test_x2i(bu, to, se)),
-    ("x2v_hat",     "lance-x2v",    "Girl + Flower + Hat → Video (cappello)", lambda bu, to, se: test_x2v_hat(bu, to, se)),
-    ("x2i_hat",     "lance-x2i",    "Girl + Flower + Hat → Image (cappello)", lambda bu, to, se: test_x2i_hat(bu, to, se)),
+    ("t2i",         "qwen-t2i",    "Text → Image",                         lambda bu, to, se: test_t2i(bu, to, se)),
+    ("i2i",         "qwen-i2i",    "Image → Image",                        lambda bu, to, se: test_i2i(bu, to, se)),
+    ("i2t",         "qwen-i2t",    "Image → Text",                         lambda bu, to, se: test_i2t(bu, to, se)),
+    ("t2v",         "qwen-t2v",    "Text → Video",                         lambda bu, to, se: test_t2v(bu, to, se)),
+    ("v2v",         "qwen-v2v",    "Video → Video",                        lambda bu, to, se: test_v2v(bu, to, se)),
+    ("v2t",         "qwen-v2t",    "Video → Text",                         lambda bu, to, se: test_v2t(bu, to, se)),
+    ("ti2v",        "qwen-ti2v",   "Image + Text → Video",                 lambda bu, to, se: test_ti2v(bu, to, se)),
+    ("x2v",         "qwen-x2v",    "Any (text/image/video) → Video",       lambda bu, to, se: test_x2v(bu, to, se)),
+    ("x2i",         "qwen-x2i",    "Any (text/image/video) → Image",       lambda bu, to, se: test_x2i(bu, to, se)),
+    ("x2v_hat",     "qwen-x2v",    "Girl + Flower + Hat → Video (cappello)", lambda bu, to, se: test_x2v_hat(bu, to, se)),
+    ("x2i_hat",     "qwen-x2i",    "Girl + Flower + Hat → Image (cappello)", lambda bu, to, se: test_x2i_hat(bu, to, se)),
 ]
 
 _RUNNABLE_NAMES = [name for name, model, *_ in _TESTS if model is not None]
@@ -535,7 +535,7 @@ def main() -> None:
         if model is not None
     )
     parser = argparse.ArgumentParser(
-        description="Test del server Lance OpenAI-compatibile",
+        description="Test del server qwen OpenAI-compatibile",
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog=f"Test disponibili:\n{test_list_help}",
     )
@@ -587,7 +587,7 @@ def main() -> None:
             continue
 
         # Separatore visivo tra gruppo immagine e gruppo video
-        group = "image" if model in {"lance-t2i", "lance-i2i", "lance-i2t", "lance-x2i"} else "video"
+        group = "image" if model in {"qwen-t2i", "qwen-i2i", "qwen-i2t", "qwen-x2i"} else "video"
         if prev_group is not None and group != prev_group:
             print()
         prev_group = group
